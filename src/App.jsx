@@ -1,21 +1,19 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import DashBoard from "./Components/DashBoard";
-import Home from "./Components/Home";
-import Setting from "./Components/Setting";
 import Profile from "./Components/Profile";
+import Settings from "./Components/settings";
+import TemporaryDrawer from "./Components/TemporaryDrawer";
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
 export default function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<DashBoard />}>
-            <Route path="settings" element={<Setting />} />
-            <Route path="profile" element={<Profile />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+   <BrowserRouter>
+   <Routes>
+      <Route path="/" element={<TemporaryDrawer/>}>
+          <Route path="profile" element={<Profile/>}/>
+          <Route path="settings" element={<Settings/>}/>
+      </Route>
+   </Routes>
+   </BrowserRouter>
     </>
   );
 }
