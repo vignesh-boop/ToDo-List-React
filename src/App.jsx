@@ -1,31 +1,33 @@
 import { useState } from "react";
 import LoginPage from "./Components/LoginPage";
-import DashBoardPage from "./Components/DashBoardPage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./Components/ProtectedRoute";
+import DashBoard from "./Components/DashBoard";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import ProtuctedRouting from "./Components/ProtuctedRouting";
 
 export default function App() {
 
-const [isAuthenticated ,setIsAuthenticated] = useState();
-const login =()=>{
-  setIsAuthenticated(true);
-};
 
-const logout =()=>{
-  setIsAuthenticated(false);
-};
   
+  const [isAuthenticated,setIsAuthenticated] = useState();
+
+ function login(){
+    setIsAuthenticated(true); 
+  
+}  
+ function logout(){
+    setIsAuthenticated(false);   
+}  
+
   return (
     <>
     <BrowserRouter>
-    <Routes>
-      <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
-      <Route path="/dashboard" element={<DashBoardPage logout={logout}/>}/>
-      </Route>
-      <Route path="/" element={<LoginPage login ={login}/>}/>
-    </Routes>
+        <Routes>
+          <Route path="/" element={<LoginPage login={login}/>}/>
+          <Route element={<ProtuctedRouting isAuthenticated={isAuthenticated}/>}>
+                <Route path="/dashboard" element={<DashBoard logout={logout}/>}/>
+          </Route>
+        </Routes>
     </BrowserRouter>
-   
     </>
   );
 }

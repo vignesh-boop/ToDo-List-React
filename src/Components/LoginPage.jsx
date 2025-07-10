@@ -3,49 +3,48 @@ import {Box, Button, Paper, styled, TextField, Typography} from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 
 const Container = styled(Box)({
-    display:'flex',
-    alignItems:'center',
-    justifyContent:'center',
-    minHeight:'100vh',
-    backgroundColor:'#f5f5f5'
-})
+        height:'100vh',
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+});
 
 const StyledPaper = styled(Paper)({
-  padding:'32px',
-  width:'300px',
-  textAlign:'center'
+        width:'300px',    
+        textAlign:'center',
+        padding:'20px'
 });
 
 
+
+
 export default function LoginPage({login}) {
+    const navigate = useNavigate();
 
-  const [userId,setUserId] = useState();
-  const[password,setPassword] = useState();
-  const navigate = useNavigate();
+    const [email,setEmail] = useState();
+    const [password,setPassword] = useState();
 
-  const handleLogin = ()=>{
-    if(userId == "user" && password == "user"){
-      login();
-      navigate('/dashboard');
+    function validation(){
+       
+
+if(email == 'vig@gmail.com' && password=='123'){
+        login();
+        navigate('/dashboard');
     }else{
-      alert("Enter valid email and Password");
+        alert("Enter valid user name and password");
     }
-  };
+};
 
+    
   return (
     <>
         <Container>
-          <StyledPaper elevation={3}>
-            <Typography variant='h5'  gutterBottom>
-                  Login
-            </Typography>
-
-              <TextField label='UserId' fullWidth margin='normal' value={userId} onChange={(e)=>setUserId(e.target.value)}/>
-              <TextField label='Password' fullWidth margin='normal' value={password} onChange={(e)=>setPassword(e.target.value)}/>
-          <Button variant='contained' color='primary' fullWidth sx={{mt:2}}onClick={handleLogin}>
-                Login
-          </Button>
-          </StyledPaper>
+            <StyledPaper elevation={3}>
+                    <Typography variant='h4' gutterBottom margin={'normal'}> User Login</Typography>
+                    <TextField label='Email' type='email'fullWidth margin={'normal'} value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    <TextField label='Password' type='password'fullWidth margin={'normal'} value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                    <Button variant='contained' color='primary'onClick={validation}>Login</Button>
+            </StyledPaper>
         </Container>
     </>
   )
