@@ -1,32 +1,35 @@
+
 import { useState } from "react";
+import Items from "./Components/Items";
 import LoginPage from "./Components/LoginPage";
-import DashBoard from "./Components/DashBoard";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import ProtuctedRouting from "./Components/ProtuctedRouting";
+import ProductPage from "./Components/ProductPage";
+import{BrowserRouter, Route, Routes} from 'react-router-dom'
+import ProtectedRouting from "./Components/ProtectedRouting";
+import CartItems from "./Components/CartItems";
+import Billing from "./Components/Billing";
+
+
+
 
 export default function App() {
 
-
-  
-  const [isAuthenticated,setIsAuthenticated] = useState();
-
- function login(){
-    setIsAuthenticated(true); 
-  
-}  
- function logout(){
-    setIsAuthenticated(false);   
-}  
-
+  const [isAuthenticated , setIsAuthenticated] = useState(false);
+    
   return (
     <>
+    
     <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage login={login}/>}/>
-          <Route element={<ProtuctedRouting isAuthenticated={isAuthenticated}/>}>
-                <Route path="/dashboard" element={<DashBoard logout={logout}/>}/>
+      <Routes>
+        <Route element={<ProtectedRouting isAuthenticated={isAuthenticated}/>}>
+          <Route path="/" element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>}/>
+          <Route path="/dashboard" element={<ProductPage/>}>
+          <Route path="items" element={<Items/>}/>
+          <Route path="cart" element={<CartItems/>}/>
+          <Route path="cart/billing" element={<Billing/>}/>
           </Route>
-        </Routes>
+        </Route>
+
+      </Routes>
     </BrowserRouter>
     </>
   );
