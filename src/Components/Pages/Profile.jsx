@@ -1,28 +1,56 @@
-import React, { useContext } from 'react'
-import { Profilechip, ProfileContainer, ProfileWrapper, UserImage } from '../../Styles/profile'
-import { Typography } from '@mui/material'
-import { AppContext } from './Root'
-import men from '/src/asserts/subsidy/men.jpg'
-import women from '/src/asserts/subsidy/women.jpg'
+import { Box, Container, Paper, styled, Typography } from '@mui/material';
+import React from 'react'
+import { useSelector } from 'react-redux';
+
+const StyledContainer = styled (Container) ({
+marginTop: "48px",
+});
+
+const StyledPaper = styled (Paper)({
+padding: "24px",
+borderRadius: "8px",
+boxShadow: " 0px 0px 3px 3px #ccc",
+});
+
+
+const StyledMessageContainer = styled (Container)({
+marginTop: "32px",
+});
+
+const StyledTitle = styled (Typography) ({
+fontWeight: "bold",
+color: "#1976d2",
+});
+
+const StyledHeading = styled (Typography) ({
+fontWeight: "bold",
+});
 
 export default function Profile() {
-    const{userDetails}=useContext(AppContext);
-    console.log(userDetails?.name);
+
+    const userDetails = useSelector((state)=>state.user);
+    const isSigin = userDetails?.userName && userDetails?.mobileNumber;
+
   return (
     <>
-    <ProfileContainer>
-        <ProfileWrapper>
-            <UserImage src={userDetails?.gender =='male'?men:women}/>
-            <Typography fontSize='20px' fontWeight={600}>
-                My Profile
-            </Typography>
-            <Profilechip>Name :{userDetails?.name}</Profilechip>
-            <Profilechip>Age :{userDetails?.age}</Profilechip>
-            <Profilechip>Location :{userDetails?.location}</Profilechip>
-            <Profilechip>Gender :{userDetails?.gender}</Profilechip>
-            <Profilechip>Annual Income :{userDetails?.income}</Profilechip>
-        </ProfileWrapper>
-    </ProfileContainer>
+    <StyledContainer sx={{maxWidth:'sm'}}>
+
+    {isSigin?(
+        <StyledPaper>
+            <StyledTitle variant='h4' align='center' sx={{mb:3}}>User Profile</StyledTitle>
+            <Box sx={{mb:2}}>
+                <StyledHeading variant='h6'> Name : {userDetails?.userName}</StyledHeading>
+            </Box>
+            <Box sx={{mb:2}}>
+                <StyledHeading variant='h6'> Mobile Number : {userDetails?.mobileNumber}</StyledHeading>
+            </Box>
+        </StyledPaper>
+    ):(
+        <StyledMessageContainer>
+            <StyledTitle variant="h4" align="center">Please sigin to view your profile </StyledTitle>
+        </StyledMessageContainer>
+    )}
+    </StyledContainer>
     </>
   )
 }
