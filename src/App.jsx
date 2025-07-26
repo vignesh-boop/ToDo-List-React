@@ -1,20 +1,15 @@
 
-import { BrowserRouter } from "react-router-dom";
-import NavBar from "./Components/shared/NavBar";
-import { Box } from "@mui/material";
 import Root from "./Components/Root";
-
+import {Provider} from 'react-redux';
+import store from "./redux/store";
 export default function App() {
   
   return (
     <>
-   <BrowserRouter>
-   <NavBar/>
-   <Box sx={{marginTop:'80px'}}>
-    <Root/>
-   </Box>
-   
-   </BrowserRouter>
+    <Provider store={store}>
+
+   <Root/>
+    </Provider>
     </>
   );
 }
